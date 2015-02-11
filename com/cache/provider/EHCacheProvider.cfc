@@ -37,6 +37,7 @@ Mark Mandel		02/11/2009		Created
 		var interfaces = ["net.sf.ehcache.event.CacheEventListener"];
 		var _Thread = createObject("java", "java.lang.Thread"); //using 'Thread' breaks CFB
 		var currentClassloader = _Thread.currentThread().getContextClassLoader();
+		var proxy = 0;
 
 		setArrays(createObject("java", "java.util.Arrays"));
 
@@ -86,9 +87,9 @@ Mark Mandel		02/11/2009		Created
 			setDefaultCache(configHelper.createDefaultCache());
 			
 			if (server.coldfusion.productname contains "Railo") {
-				var proxy = createDynamicProxy(this, interfaces);
+				proxy = createDynamicProxy(this, interfaces);
 			} else {
-				var proxy = getJavaLoader().create("com.compoundtheory.coldfusion.cfc.CFCDynamicProxy").createInstance(this, interfaces);
+				proxy = getJavaLoader().create("com.compoundtheory.coldfusion.cfc.CFCDynamicProxy").createInstance(this, interfaces);
 			}
 			
 			setProxy(proxy);
