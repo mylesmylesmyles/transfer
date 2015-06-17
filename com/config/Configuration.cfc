@@ -40,6 +40,18 @@ Mark Mandel		14/09/2006		Created
 		setDatasourcePassword("");
 		setEnableRemotingSupport(arguments.enableRemotingSupport);
 
+		if(StructKeyExists(arguments, "name"))
+		{
+			setDatasourceName(arguments.name);
+		}
+		if(StructKeyExists(arguments, "username"))
+		{
+			setDatasourceUserName(arguments.username);
+		}
+		if(StructKeyExists(arguments, "password"))
+		{
+			setDatasourcePassword(arguments.password);
+		}
 		if(StructKeyExists(arguments, "remotingName"))
 		{
 			setRemotingName(arguments.remotingName);
