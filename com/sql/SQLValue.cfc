@@ -53,6 +53,7 @@ Mark Mandel		04/04/2008		Created
 	<cfscript>
 		var value = 0;
 		var type = property.getType();
+		var x = 0;
 
 		if(type eq "boolean")
 		{
@@ -62,7 +63,17 @@ Mark Mandel		04/04/2008		Created
 		else if(getDataSource().getDatabaseType() eq "oracle" AND type eq "string")
 		{
 			//handle oracle clobs
-			type = arguments.query.getMetaData().getColumnType(arguments.query.findColumn(arguments.property.getColumn()));
+			if (server.coldfusion.productname eq 'Railo') {
+				meta = getMetaData(arguments.query);
+				for (x = 1; x <= ArrayLen(meta); x++) {
+					if (meta[x].name eq arguments.property.getColumn()) {
+						type = meta[x].typeName;
+						break;
+					}
+				}
+			} else {
+				type = arguments.query.getMetaData().getColumnType(arguments.query.findColumn(arguments.property.getColumn()));
+			}
 
 			if(type eq getTypes().CLOB)
 			{
